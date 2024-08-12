@@ -4,7 +4,12 @@ import { Menu, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import Dashboard from "./components/organisms/Dashboard";
 import NavBar from "./components/organisms/NavBar";
 
@@ -43,6 +48,9 @@ function App() {
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
+            <SheetTitle className="hidden">
+              <span className="sr-only">Navigation menu</span>
+            </SheetTitle>
             <SheetContent
               side="left"
               className="flex flex-col items-start justify-start px-4 w-5/6"

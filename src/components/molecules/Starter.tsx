@@ -1,7 +1,9 @@
 import { Plus } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 export default function Starter() {
+  const { setEditForm } = useGlobalContext();
   return (
     <div
       className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
@@ -14,7 +16,10 @@ export default function Starter() {
         <p className="text-sm text-muted-foreground">
           Ready, Set, Code! Create Your First Code Snippet Today
         </p>
-        <Button className="mt-4">
+        <Button
+          className="mt-4"
+          onClick={() => setEditForm({ formState: "Create", snippet: null })}
+        >
           <Plus className="size-4 pt-0.5 mr-2" />
           Create a New Snippet
         </Button>

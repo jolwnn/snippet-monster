@@ -1,3 +1,5 @@
+import CodeBlock from "@/components/atoms/CodeBlock";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -5,9 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { SnippetType } from "@/types/snippets";
-import CodeBlock from "../atoms/CodeBlock";
-import { Badge } from "../ui/badge";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
+import { SnippetType } from "@/types/dbtypes";
 import { tomorrowNightEighties } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 // Tailwind CSS Classes for Styling
@@ -24,13 +25,23 @@ const cardContentStyles = "p-0 flex-grow overflow-hidden";
 
 // Component Function
 export function SnippetCard({ snippet }: { snippet: SnippetType }) {
+  const { tagIdMap } = useGlobalContext();
   return (
     <Card className={cardStyles}>
       <CardHeader className={cardHeaderStyles}>
         <CardTitle className={cardTitleStyles}>{snippet.title}</CardTitle>
-        <Badge variant="secondary" className={badgeStyles}>
-          {snippet.language ?? "JavaScript"}
-        </Badge>
+        <span className="flex flex-wrap gap-1">
+          {snippet.tags?.map((id) => {
+            const tag = tagIdMap?.get(id);
+            return !tag ? (
+              <></>
+            ) : (
+              <Badge key={tag.id} variant="secondary" className={badgeStyles}>
+                {tag.name}
+              </Badge>
+            );
+          })}
+        </span>
         <CardDescription className={cardDescriptionStyles}>
           {snippet.description}
         </CardDescription>

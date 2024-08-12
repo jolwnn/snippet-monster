@@ -14,6 +14,7 @@ export type Database = {
           code: string | null
           created_at: string
           description: string | null
+          favourite: boolean
           id: string
           language: string | null
           tags: string[] | null
@@ -23,6 +24,7 @@ export type Database = {
           code?: string | null
           created_at?: string
           description?: string | null
+          favourite?: boolean
           id?: string
           language?: string | null
           tags?: string[] | null
@@ -32,10 +34,29 @@ export type Database = {
           code?: string | null
           created_at?: string
           description?: string | null
+          favourite?: boolean
           id?: string
           language?: string | null
           tags?: string[] | null
           title?: string | null
+        }
+        Relationships: []
+      }
+      tags: {
+        Row: {
+          colour: string | null
+          id: string
+          name: string | null
+        }
+        Insert: {
+          colour?: string | null
+          id?: string
+          name?: string | null
+        }
+        Update: {
+          colour?: string | null
+          id?: string
+          name?: string | null
         }
         Relationships: []
       }
