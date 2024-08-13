@@ -1,16 +1,12 @@
-import * as React from "react";
-
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { atelierCaveLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 type Props = {
   code: string;
   language: string;
-  style: { [key: string]: React.CSSProperties };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function CodeBlock({ code, language, style }: Props) {
+export default function CodeBlock({ code, language }: Props) {
   return (
     <SyntaxHighlighter
       language={language}

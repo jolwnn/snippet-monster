@@ -15,7 +15,7 @@ import NavBar from "./components/organisms/NavBar";
 
 function App() {
   return (
-    <div className="p-0 grid min-h-screen min-w-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[260px_1fr]">
+    <div className="p-0 grid min-h-screen min-w-screen w-full md:grid-cols-[210px_1fr] lg:grid-cols-[250px_1fr]">
       <div className="hidden border-r md:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
@@ -35,7 +35,7 @@ function App() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col bg-indigo-50/60">
+      <div className="flex flex-col bg-violet-50/80">
         <header className="flex h-14 items-center gap-4 border-b px-4 lg:h-[60px] lg:px-6">
           <Sheet>
             <SheetTrigger asChild>

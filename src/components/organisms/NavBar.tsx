@@ -2,14 +2,26 @@ import { Plus, LayoutGrid, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
+import { createNewSnippet } from "@/lib/actions";
 
 export default function NavBar() {
-  const { setEditForm } = useGlobalContext();
+  const { editForm, setEditForm } = useGlobalContext();
+
+  function handleCreateSnippet() {
+    createNewSnippet().then((res) => {
+      if (res.data) {
+        setEditForm({ formState: "Create", snippet: res.data });
+      } else {
+        console.error(res.error);
+      }
+    });
+  }
   return (
     <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
       <Button
         className="my-4 mx-2"
-        onClick={() => setEditForm({ formState: "Create", snippet: null })}
+        onClick={handleCreateSnippet}
+        disabled={editForm.formState === "Create"}
       >
         <Plus className="size-4 pt-0.5 mr-2" />
         Create a New Snippet

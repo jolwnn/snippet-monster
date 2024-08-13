@@ -1,4 +1,4 @@
-import { languageType } from "@/types/constants";
+import { LanguageType } from "@/types/constants";
 import JavaOriginalIcon from "react-devicons/java/original";
 import JavascriptOriginalIcon from "react-devicons/javascript/original";
 import PythonOriginalIcon from "react-devicons/python/original";
@@ -12,7 +12,7 @@ import ElixirOriginalIcon from "react-devicons/elixir/original";
 import TypescriptOriginalIcon from "react-devicons/typescript/original";
 import Css3OriginalIcon from "react-devicons/css3/original";
 
-export default function LanguageIcon({ language }: { language: languageType }) {
+export default function LanguageIcon({ language }: { language: LanguageType }) {
   return (
     <>
       {language === "java" && <JavaOriginalIcon size="15px" />}

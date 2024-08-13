@@ -18,7 +18,8 @@ export type Database = {
           id: string
           language: string | null
           tags: string[] | null
-          title: string | null
+          title: string
+          updated_at: string
         }
         Insert: {
           code?: string | null
@@ -28,7 +29,8 @@ export type Database = {
           id?: string
           language?: string | null
           tags?: string[] | null
-          title?: string | null
+          title?: string
+          updated_at?: string
         }
         Update: {
           code?: string | null
@@ -38,7 +40,8 @@ export type Database = {
           id?: string
           language?: string | null
           tags?: string[] | null
-          title?: string | null
+          title?: string
+          updated_at?: string
         }
         Relationships: []
       }

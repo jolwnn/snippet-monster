@@ -1,4 +1,5 @@
 import { Database } from "@/database.types.ts";
+import { SnippetType } from "@/types/dbtypes";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient<Database>(
@@ -16,26 +17,75 @@ export async function readTags() {
   return data;
 }
 
-export async function updateSnippet({
-  title,
-  description,
-  code,
-  tags,
-  language,
-}: {
-  title: string;
-  description: string;
-  code: string;
-  tags: string[];
-  language: string;
-}) {
+export async function createNewSnippet() {
   const { data, error } = await supabase
     .from("snippets")
-    .insert({ title, description, code, tags, language });
+    .insert({
+      title: "",
+      description: "",
+      code: "",
+      tags: [],
+      language: "javascript",
+      favourite: false,
+    })
+    .select();
 
   if (error) {
-    console.error("Error inserting data:", error);
+    return {
+      error: error.message,
+      data: null,
+    };
   } else {
-    console.log("Data inserted successfully:", data);
+    return {
+      error: null,
+      data: data[0] as SnippetType,
+    };
+  }
+}
+
+export async function updateSnippet(snippet: SnippetType) {
+  const { error } = await supabase
+    .from("snippets")
+    .update({ ...snippet, updated_at: new Date().toISOString() })
+    .eq("id", snippet.id);
+
+  if (error) {
+    return {
+      error: error.message,
+    };
+  } else {
+    return {
+      error: null,
+    };
+  }
+}
+
+export async function updateSnippetLiked(id: string, favourite: boolean) {
+  const { error } = await supabase
+    .from("snippets")
+    .update({ favourite })
+    .eq("id", id);
+  if (error) {
+    return {
+      error: error.message,
+    };
+  } else {
+    return {
+      error: null,
+    };
+  }
+}
+
+export async function deleteSnippet(id: string) {
+  const { error } = await supabase.from("snippets").delete().eq("id", id);
+
+  if (error) {
+    return {
+      error: error.message,
+    };
+  } else {
+    return {
+      error: null,
+    };
   }
 }

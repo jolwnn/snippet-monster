@@ -2,6 +2,7 @@
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import SnippetGrid from "@/components/molecules/SnippetGrid";
 import { SnippetForm } from "@/components/molecules/SnippetForm";
+import SnippetPreview from "../molecules/SnippetPreview";
 
 export default function Dashboard() {
   const { editForm } = useGlobalContext();
@@ -18,11 +19,7 @@ export default function Dashboard() {
       ) : (
         <div className="grid grid-cols-3 gap-0 w-full">
           <div className="flex flex-1 flex-col gap-4 lg:p-3 lg:border-r">
-            <div className="flex items-center">
-              <h1 className="text-lg font-semibold hidden lg:block">
-                Past Snippets
-              </h1>
-            </div>
+            <SnippetPreview />
             <SnippetGrid />
           </div>
           <div className="col-span-3 p-3 lg:col-span-2">

@@ -1,4 +1,4 @@
-export type languageType =
+export type LanguageType =
   | "javascript"
   | "java"
   | "python"
@@ -12,7 +12,7 @@ export type languageType =
   | "typescript"
   | "css";
 
-export type tagColorType =
+export type TagColorType =
   | "amber"
   | "black"
   | "blue"
