@@ -4,10 +4,11 @@ import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { createNewSnippet } from "@/lib/actions";
 
 export default function Starter() {
-  const { setEditForm } = useGlobalContext();
+  const { setEditForm, stepper, setStepper } = useGlobalContext();
   function handleCreateSnippet() {
     createNewSnippet().then((res) => {
       if (res.data) {
+        setStepper(stepper + 1); // To trigger re-render of snippet grid
         setEditForm({ formState: "Create", snippet: res.data });
       } else {
         console.error(res.error);

@@ -1,15 +1,18 @@
-import { Plus, LayoutGrid, Heart } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { createNewSnippet } from "@/lib/actions";
+import { Heart, LayoutGrid, Plus } from "lucide-react";
+import TagManager from "@/components/molecules/TagManager";
 
 export default function NavBar() {
-  const { editForm, setEditForm } = useGlobalContext();
+  const { snippets, editForm, setEditForm, tab, setTab, stepper, setStepper } =
+    useGlobalContext();
 
   function handleCreateSnippet() {
     createNewSnippet().then((res) => {
       if (res.data) {
+        setStepper(stepper + 1); // To trigger re-render of snippet grid
         setEditForm({ formState: "Create", snippet: res.data });
       } else {
         console.error(res.error);
@@ -23,29 +26,38 @@ export default function NavBar() {
         onClick={handleCreateSnippet}
         disabled={editForm.formState === "Create"}
       >
-        <Plus className="size-4 pt-0.5 mr-2" />
+        <Plus className="size-4 py-0.5 mr-2" />
         Create a New Snippet
       </Button>
+      <span className="text-indigo-950/90 text-left px-3 mt-4">Views</span>
       <Button
         variant="ghost"
-        className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+        className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${tab === "all" ? "bg-indigo-50" : ""}`}
+        onClick={() => {
+          setTab("all");
+        }}
       >
         <LayoutGrid className="size-4" />
         All Snippets
-        <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-          0
+        <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-indigo-950">
+          {snippets?.length ?? 0}
         </Badge>
       </Button>
       <Button
         variant="ghost"
-        className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+        className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${tab === "favourites" ? "bg-indigo-50" : ""}`}
+        onClick={() => {
+          setTab("favourites");
+        }}
       >
         <Heart className="size-4" />
         Favourites
-        <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-          0
+        <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-pink-200 text-black hover:bg-pink-300">
+          {snippets?.filter((snippet) => snippet.favourite).length ?? 0}
         </Badge>
       </Button>
+      <span className="text-indigo-950/90 text-left px-3 mt-6">More</span>
+      <TagManager />
     </nav>
   );
 }

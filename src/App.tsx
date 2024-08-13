@@ -15,7 +15,7 @@ import NavBar from "./components/organisms/NavBar";
 
 function App() {
   return (
-    <div className="p-0 grid min-h-screen min-w-screen w-full md:grid-cols-[210px_1fr] lg:grid-cols-[250px_1fr]">
+    <div className="p-0 grid min-h-screen min-w-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[260px_1fr]">
       <div className="hidden border-r md:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
@@ -23,9 +23,9 @@ function App() {
               <img
                 src={"/snippetmonster.svg"}
                 alt="App Icon"
-                className="size-8"
+                className="size-10"
               />
-              <span className="text-lg lg:text-xl font-bold text-gray-800">
+              <span className="text-md lg:text-xl font-bold text-gray-800">
                 Snippet Monster
               </span>
             </span>
@@ -61,11 +61,11 @@ function App() {
           <div className="w-full flex-1">
             <form>
               <div className="relative flex items-center justify-center">
-                <Search className="absolute left-2.5 size-4 text-muted-foreground" />
+                <Search className="absolute left-2.5 size-4 text-indigo-500/80" />
                 <Input
                   type="search"
                   placeholder="Search snippets..."
-                  className="w-full appearance-none bg-background pl-8 shadow-none rounded-full"
+                  className="w-full appearance-none bg-background pl-8 shadow-none rounded-full focus-visible:ring-1 focus-visible:ring-indigo-500"
                 />
               </div>
             </form>

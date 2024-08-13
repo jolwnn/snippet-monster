@@ -13,17 +13,22 @@ export type LanguageType =
   | "css";
 
 export type TagColorType =
-  | "amber"
-  | "black"
-  | "blue"
-  | "gray"
-  | "green"
-  | "indigo"
-  | "lime"
-  | "orange"
+  | "rose"
   | "pink"
+  | "fuchsia"
   | "purple"
-  | "red"
+  | "violet"
+  | "indigo"
+  | "blue"
+  | "sky"
+  | "cyan"
   | "teal"
-  | "white"
-  | "yellow";
+  | "emerald"
+  | "green"
+  | "lime"
+  | "yellow"
+  | "amber"
+  | "orange"
+  | "red"
+  | "gray"
+  | "slate";

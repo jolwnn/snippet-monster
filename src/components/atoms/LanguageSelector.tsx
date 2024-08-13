@@ -68,7 +68,7 @@ export function LanguageSelector() {
                     <LanguageIcon language={lang as LanguageType} />
                     {DEFAULT_LANGUAGES_NAMES[lang as LanguageType]}
                   </span>
-
+                  d
                   <CheckIcon
                     className={cn(
                       "ml-auto h-4 w-4",

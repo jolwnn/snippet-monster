@@ -1,5 +1,5 @@
 import { Database } from "@/database.types.ts";
-import { SnippetType } from "@/types/dbtypes";
+import { SnippetType, TagType } from "@/types/dbtypes";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient<Database>(
@@ -78,6 +78,62 @@ export async function updateSnippetLiked(id: string, favourite: boolean) {
 
 export async function deleteSnippet(id: string) {
   const { error } = await supabase.from("snippets").delete().eq("id", id);
+
+  if (error) {
+    return {
+      error: error.message,
+    };
+  } else {
+    return {
+      error: null,
+    };
+  }
+}
+
+export async function createTag({
+  name,
+  colour,
+}: {
+  name: string;
+  colour: string;
+}) {
+  const { data, error } = await supabase
+    .from("tags")
+    .insert({
+      name,
+      colour,
+    })
+    .select();
+
+  if (error) {
+    return {
+      error: error.message,
+      data: null,
+    };
+  } else {
+    return {
+      error: null,
+      data: data[0] as TagType,
+    };
+  }
+}
+
+export async function deleteTag(id: string) {
+  const { error } = await supabase.from("tags").delete().eq("id", id);
+
+  if (error) {
+    return {
+      error: error.message,
+    };
+  } else {
+    return {
+      error: null,
+    };
+  }
+}
+
+export async function updateTag(tag: TagType) {
+  const { error } = await supabase.from("tags").update(tag).eq("id", tag.id);
 
   if (error) {
     return {

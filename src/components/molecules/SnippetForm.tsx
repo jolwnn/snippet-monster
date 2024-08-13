@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { Book, CheckIcon, Code, Heart, Tags } from "lucide-react";
+import { Book, CheckIcon, Code, Heart, Tags, X } from "lucide-react";
 
 import { Cancel } from "@/components/atoms/Cancel";
 import { LanguageSelector } from "@/components/atoms/LanguageSelector";
@@ -38,7 +38,13 @@ export function SnippetForm() {
   const [isFocused, setIsFocused] = React.useState(false);
 
   function handleSaveSnippet() {
-    updateSnippet(editForm.snippet).then((res) => {
+    const tagsToSave =
+      editForm.snippet?.tags?.filter((id) => tagIdMap?.has(id)) ?? [];
+    // To remove tags that are no longer in the database
+    updateSnippet({
+      ...editForm.snippet,
+      tags: tagsToSave,
+    }).then((res) => {
       if (res.error) {
         console.error(res.error);
       } else {
@@ -105,9 +111,24 @@ export function SnippetForm() {
                   <Badge
                     key={tag.id}
                     variant="secondary"
-                    className="text-[10px] bg-indigo-100 text-indigo-700 py-0.5 rounded-full"
+                    className={`text-[10px] bg-${tag.colour ?? "indigo"}-100 text-${tag.colour ?? "indigo"}-700 py-0.5 rounded-full flex items-center gap-1`}
                   >
                     {tag.name}
+                    <X
+                      className={`h-3 text-${tag.colour ?? "indigo"}-700 hover:text-${tag.colour ?? "indigo"}-900`}
+                      onClick={() => {
+                        setEditForm({
+                          ...editForm,
+                          snippet: {
+                            ...editForm.snippet,
+                            tags:
+                              editForm.snippet.tags?.filter(
+                                (id) => id !== tag.id
+                              ) ?? [],
+                          },
+                        });
+                      }}
+                    />
                   </Badge>
                 );
               })}
@@ -132,7 +153,7 @@ export function SnippetForm() {
                       <CommandGroup>
                         {tags?.map((tag) => (
                           <CommandItem
-                            value={tag.id}
+                            value={tag.name ?? ""}
                             key={tag.id}
                             disabled={editForm.snippet.tags?.includes(tag.id)}
                             onSelect={() => {
@@ -148,7 +169,13 @@ export function SnippetForm() {
                               });
                             }}
                           >
-                            {tag.name}
+                            <Badge
+                              key={tag.id}
+                              variant="secondary"
+                              className={`bg-${tag.colour}-100 px-3 py-0.5 text-${tag.colour}-700 rounded-full`}
+                            >
+                              {tag.name}
+                            </Badge>
                             <CheckIcon
                               className={cn(
                                 "ml-auto h-4 w-4",

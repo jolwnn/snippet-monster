@@ -29,3 +29,25 @@ export const DEFAULT_LANGUAGES_NAMES = {
   typescript: "TypeScript",
   css: "CSS",
 };
+
+export const DEFAULT_COLOURS = [
+  "rose",
+  "pink",
+  "fuchsia",
+  "purple",
+  "violet",
+  "indigo",
+  "blue",
+  "sky",
+  "cyan",
+  "teal",
+  "emerald",
+  "green",
+  "lime",
+  "yellow",
+  "amber",
+  "orange",
+  "red",
+  "gray",
+  "slate",
+];

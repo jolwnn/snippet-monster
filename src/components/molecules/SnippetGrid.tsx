@@ -1,26 +1,14 @@
 "use client";
-import { Loader2 } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
 import { SnippetCard } from "@/components/molecules/SnippetCard";
-import { useGlobalContext } from "@/hooks/useGlobalContext";
 import Starter from "@/components/molecules/Starter";
-import * as React from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
+import { Loader2 } from "lucide-react";
 
 export default function SnippetGrid() {
-  const { snippets, isPending, editForm } = useGlobalContext();
-  const [snippetsToShow, setSnippetsToShow] = React.useState(snippets);
+  const { snippets, snippetsToShow, isPending, editForm } = useGlobalContext();
 
-  React.useEffect(() => {
-    if (editForm.formState === "Closed") {
-      setSnippetsToShow(snippets);
-    } else {
-      setSnippetsToShow(
-        snippets?.filter((snippet) => snippet.id !== editForm.snippet.id) ?? []
-      );
-    }
-  }, [editForm.formState, editForm.snippet.id, snippets]);
-
-  const gridStyles = `${editForm.formState === "Closed" ? "md:grid-cols-2 lg:grid-cols-3 lg:pr-20" : "hidden lg:block lg:grid-cols-1 space-y-4"} w-full grid gap-4 grid-cols-1`;
+  const gridStyles = `${editForm.formState === "Closed" ? "md:grid-cols-2 lg:grid-cols-3 lg:pr-5" : "hidden lg:block lg:grid-cols-1 space-y-4"} w-full grid gap-4 grid-cols-1`;
 
   return (
     <>
