@@ -26,7 +26,7 @@ import { updateSnippet } from "@/lib/actions";
 import ace from "ace-builds";
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-java";
-import "ace-builds/src-noconflict/theme-github";
+import "ace-builds/src-noconflict/theme-tomorrow";
 import * as React from "react";
 import AceEditor from "react-ace";
 
@@ -55,12 +55,12 @@ export function SnippetForm() {
   }
 
   return (
-    <Card className="w-full p-4 pl-2 h-auto">
+    <Card className="w-full p-4 pl-2">
       <CardContent className="w-full p-0 pr-2">
         <div className="flex w-full items-center justify-end">
           <Cancel />
         </div>
-        <div className="flex flex-col gap-1 items-start w-full h-auto">
+        <div className="flex flex-col gap-1 items-start w-full">
           <div className="grid grid-cols-12 items-center justify-center w-full">
             <span className="mr-1 md:mr-5 text-right text-lg font-semibold cols-span-1 text-muted-foreground/50">
               T
@@ -97,101 +97,100 @@ export function SnippetForm() {
               />
             </div>
           </div>
-          <div className="hidden md:block w-full">
-            <div className="grid grid-cols-12 items-center justify-center">
-              <span className="flex cols-span-1 justify-end items-start h-full">
-                <Tags className="text-muted-foreground/50 size-4 mr-4 ml-2 mt-3 hidden md-block" />
-              </span>
-              <div className="flex col-span-11 p-2 flex-wrap gap-1">
-                {editForm.snippet?.tags?.map((id) => {
-                  const tag = tagIdMap?.get(id);
-                  return !tag ? (
-                    <></>
-                  ) : (
-                    <Badge
-                      key={tag.id}
-                      variant="secondary"
-                      className={`text-[10px] bg-${tag.colour ?? "indigo"}-100 text-${tag.colour ?? "indigo"}-700 py-0.5 rounded-full flex items-center gap-1`}
-                    >
-                      {tag.name}
-                      <X
-                        className={`h-3 text-${tag.colour ?? "indigo"}-700 hover:text-${tag.colour ?? "indigo"}-900`}
-                        onClick={() => {
-                          setEditForm({
-                            ...editForm,
-                            snippet: {
-                              ...editForm.snippet,
-                              tags:
-                                editForm.snippet.tags?.filter(
-                                  (id) => id !== tag.id
-                                ) ?? [],
-                            },
-                          });
-                        }}
-                      />
-                    </Badge>
-                  );
-                })}
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      className="whitespace-nowrap text-xs rounded-full px-2.5 py-0.5 h-auto"
-                    >
-                      + Add Tag
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0">
-                    <Command>
-                      <CommandInput
-                        placeholder="Search tags..."
-                        className="h-9"
-                      />
-                      <CommandList>
-                        <CommandEmpty>No tags found.</CommandEmpty>
-                        <CommandGroup>
-                          {tags?.map((tag) => (
-                            <CommandItem
-                              value={tag.name ?? ""}
+
+          <div className="grid grid-cols-12 items-center justify-center w-full">
+            <span className="flex cols-span-1 justify-end items-start h-full">
+              <Tags className="text-muted-foreground/50 size-4 mr-4 ml-2 mt-3 hidden md-block" />
+            </span>
+            <div className="flex col-span-11 p-2 flex-wrap gap-1">
+              {editForm.snippet?.tags?.map((id) => {
+                const tag = tagIdMap?.get(id);
+                return !tag ? (
+                  <></>
+                ) : (
+                  <Badge
+                    key={tag.id}
+                    variant="secondary"
+                    className={`text-[10px] bg-${tag.colour ?? "indigo"}-100 text-${tag.colour ?? "indigo"}-700 py-0.5 rounded-full flex items-center gap-1`}
+                  >
+                    {tag.name}
+                    <X
+                      className={`h-3 text-${tag.colour ?? "indigo"}-700 hover:text-${tag.colour ?? "indigo"}-900`}
+                      onClick={() => {
+                        setEditForm({
+                          ...editForm,
+                          snippet: {
+                            ...editForm.snippet,
+                            tags:
+                              editForm.snippet.tags?.filter(
+                                (id) => id !== tag.id
+                              ) ?? [],
+                          },
+                        });
+                      }}
+                    />
+                  </Badge>
+                );
+              })}
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    className="whitespace-nowrap text-xs rounded-full px-2.5 py-0.5 h-auto"
+                  >
+                    + Add Tag
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[200px] p-0">
+                  <Command>
+                    <CommandInput
+                      placeholder="Search tags..."
+                      className="h-9"
+                    />
+                    <CommandList>
+                      <CommandEmpty>No tags found.</CommandEmpty>
+                      <CommandGroup>
+                        {tags?.map((tag) => (
+                          <CommandItem
+                            value={tag.name ?? ""}
+                            key={tag.id}
+                            disabled={editForm.snippet.tags?.includes(tag.id)}
+                            onSelect={() => {
+                              setEditForm({
+                                ...editForm,
+                                snippet: {
+                                  ...editForm.snippet,
+                                  tags: [
+                                    ...(editForm.snippet.tags ?? []),
+                                    tag.id,
+                                  ],
+                                },
+                              });
+                            }}
+                          >
+                            <Badge
                               key={tag.id}
-                              disabled={editForm.snippet.tags?.includes(tag.id)}
-                              onSelect={() => {
-                                setEditForm({
-                                  ...editForm,
-                                  snippet: {
-                                    ...editForm.snippet,
-                                    tags: [
-                                      ...(editForm.snippet.tags ?? []),
-                                      tag.id,
-                                    ],
-                                  },
-                                });
-                              }}
+                              variant="secondary"
+                              className={`bg-${tag.colour}-100 px-3 py-0.5 text-${tag.colour}-700 rounded-full`}
                             >
-                              <Badge
-                                key={tag.id}
-                                variant="secondary"
-                                className={`bg-${tag.colour}-100 px-3 py-0.5 text-${tag.colour}-700 rounded-full`}
-                              >
-                                {tag.name}
-                              </Badge>
-                              <CheckIcon
-                                className={cn(
-                                  "ml-auto h-4 w-4",
-                                  editForm.snippet.tags?.includes(tag.id)
-                                    ? "opacity-100"
-                                    : "opacity-0"
-                                )}
-                              />
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
-              </div>
+                              {tag.name}
+                            </Badge>
+                            <CheckIcon
+                              className={cn(
+                                "ml-auto h-4 w-4",
+                                editForm.snippet.tags?.includes(tag.id)
+                                  ? "opacity-100"
+                                  : "opacity-0"
+                              )}
+                            />
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
             </div>
           </div>
 
