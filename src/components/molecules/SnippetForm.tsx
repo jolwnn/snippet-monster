@@ -137,12 +137,12 @@ export function SnippetForm() {
                   <Button
                     variant="outline"
                     role="combobox"
-                    className="whitespace-nowrap text-xs rounded-full px-2.5 py-0.5 h-auto"
+                    className="whitespace-nowrap text-xs rounded-full px-2.5 py-0.5 h-auto hidden md:block"
                   >
                     + Add Tag
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
+                <PopoverContent className="w-[200px] p-0 hidden md:block">
                   <Command>
                     <CommandInput
                       placeholder="Search tags..."
