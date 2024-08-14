@@ -97,23 +97,18 @@ export async function createTag({
   name: string;
   colour: string;
 }) {
-  const { data, error } = await supabase
-    .from("tags")
-    .insert({
-      name,
-      colour,
-    })
-    .select();
+  const { error } = await supabase.from("tags").insert({
+    name,
+    colour,
+  });
 
   if (error) {
     return {
       error: error.message,
-      data: null,
     };
   } else {
     return {
       error: null,
-      data: data[0] as TagType,
     };
   }
 }
