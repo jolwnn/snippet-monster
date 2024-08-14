@@ -39,8 +39,6 @@ export function SnippetCard({ snippet }: { snippet: SnippetType }) {
     "flex flex-col gap-0 w-full items-start justify-start p-1";
   const cardTitleStyles = `text-lg font-semibold text-left ${(!snippet.title || snippet?.title === "") && "text-muted-foreground/50"}`;
   const cardDescriptionStyles = `text-xs text-muted-foreground text-left line-clamp-4 overflow-hidden ${(!snippet.description || snippet?.description === "") && "italic"}`;
-  const badgeStyles =
-    "text-[10px] bg-indigo-100 text-indigo-700 py-0.5 rounded-full";
   const cardContentStyles = "p-0 flex-grow overflow-hidden";
 
   function getDisplayDate({
@@ -107,7 +105,12 @@ export function SnippetCard({ snippet }: { snippet: SnippetType }) {
             return !tag ? (
               <></>
             ) : (
-              <Badge key={tag.id} variant="secondary" className={badgeStyles}>
+              <Badge
+                key={tag.id}
+                variant="secondary"
+                className={`text-[10px] bg-${tag.colour ?? "indigo"}-100 text-${tag.colour ?? "indigo"}-700 py-0.5 rounded-full
+`}
+              >
                 {tag.name}
               </Badge>
             );

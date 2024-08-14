@@ -4,6 +4,7 @@ import Starter from "@/components/molecules/Starter";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { Loader2 } from "lucide-react";
+import NoSnippetsFound from "@/components/atoms/NoSnippetsFound";
 
 export default function SnippetGrid() {
   const { snippets, snippetsToShow, isPending, editForm } = useGlobalContext();
@@ -22,6 +23,8 @@ export default function SnippetGrid() {
         </div>
       ) : snippets && snippets.length === 0 ? (
         <Starter />
+      ) : snippetsToShow?.length === 0 ? (
+        <NoSnippetsFound />
       ) : (
         <div className={gridStyles}>
           {snippetsToShow &&

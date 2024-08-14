@@ -30,7 +30,7 @@ export default function Dashboard() {
               {tab === "all" ? "All Snippets" : "Favourites"}
             </h1>
             {tab === "all" ? (
-              <img src="/rocket.svg" alt="rocket" className="size-6 pt-1" />
+              <img src="/rocket.svg" alt="rocket" className="size-7 pt-1" />
             ) : (
               <Heart className="size-6 text-indigo-950/70" fill="pink" />
             )}
