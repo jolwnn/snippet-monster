@@ -4,7 +4,7 @@ import { createNewSnippet } from "@/lib/actions";
 import { Plus } from "lucide-react";
 
 export default function NoSnippetsFound() {
-  const { setEditForm, stepper, setStepper } = useGlobalContext();
+  const { editForm, setEditForm, stepper, setStepper } = useGlobalContext();
   function handleCreateSnippet() {
     createNewSnippet().then((res) => {
       if (res.data) {
@@ -17,12 +17,12 @@ export default function NoSnippetsFound() {
   }
   return (
     <div
-      className="flex flex-1 items-center justify-center rounded-lg border shadow-sm mx-2 py-28"
+      className={`flex flex-1 items-center justify-center rounded-lg border shadow-sm mx-2 py-28 ${editForm.formState === "Closed" ? "" : "hidden"}`}
       x-chunk="dashboard-02-chunk-1"
     >
-      <div className="flex flex-col items-center gap-2 text-center">
-        <span className="flex gap-2 items-center">
-          <h3 className="text-2xl font-bold tracking-tight">
+      <div className="flex flex-col items-center gap-2 text-center p-4">
+        <span className="flex gap-2 items-center p-2">
+          <h3 className="text-xl md:text-2xl font-bold tracking-tight">
             No code snippets found
           </h3>
           <img src="/sadmonster.svg" alt="sad" className="size-7 pt-" />

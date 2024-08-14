@@ -21,7 +21,7 @@ export function DeleteTag({ id }: { id: string }) {
       if (res.error) {
         console.error(res.error);
       } else {
-        setTagStepper(tagStepper + 1); // To trigger re-render of snippet grid
+        setTagStepper(tagStepper + 1); // To trigger re-render of tags
       }
     });
   }

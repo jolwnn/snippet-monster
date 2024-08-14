@@ -18,7 +18,7 @@ import { ScrollArea } from "../ui/scroll-area";
 export default function TagManager() {
   const { tags } = useGlobalContext();
   return (
-    <Dialog defaultOpen>
+    <Dialog>
       <DialogTrigger asChild>
         <Button
           variant="ghost"
@@ -32,7 +32,7 @@ export default function TagManager() {
           </Badge>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-[600px] p-4 md:p-6">
         <DialogHeader>
           <div className="flex items-center justify-between mt-2">
             <DialogTitle className="font-bold text-xl flex items-center gap-2">
@@ -46,22 +46,40 @@ export default function TagManager() {
             Edit or delete tags used across your snippets.
           </DialogDescription>
         </DialogHeader>
-        <ScrollArea className="grid gap-2 md:max-h-[55vh] pb-2 rounded-md px-4 py-6 bg-muted">
-          {tags?.map((tag) => (
-            <div className="grid grid-cols-[1fr_auto] items-center gap-4 px-4 py-2 rounded-md border border-slate-200 hover:scale-95 hover:border-indigo-600 mb-2 bg-white">
-              <Badge
-                key={tag.id}
-                variant="secondary"
-                className={`text-[12px] bg-${tag.colour ?? "indigo"}-100 text-${tag.colour ?? "indigo"}-700 h-auto py-1 rounded-full whitespace-nowrap w-auto cursor-pointer`}
-              >
-                {tag.name}
-              </Badge>
-              <div className="flex items-center gap-2">
-                <EditTagsDialog tag={tag} />
-                <DeleteTag id={tag.id} />
-              </div>
+        <ScrollArea className="grid gap-2 max-h-[80vh] md:max-h-[55vh] pb-2 rounded-md px-4 py-6 bg-muted">
+          {!tags || tags.length === 0 ? (
+            <div className="flex flex-col items-center gap-1 text-center">
+              <h3 className="text-xl font-bold tracking-tight">
+                You have no tags
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Create tags to organize your snippets.
+              </p>
             </div>
-          ))}
+          ) : (
+            <>
+              {tags
+                ?.sort((a, b) => a.id.localeCompare(b.id)) // To ensure no rearrangement after edits
+                .map((tag) => (
+                  <div
+                    key={tag.id}
+                    className="grid grid-cols-[1fr_auto] items-center gap-4 px-4 py-2 rounded-md border border-slate-200 hover:scale-95 hover:border-indigo-600 mb-2 bg-white"
+                  >
+                    <Badge
+                      key={tag.id + "badge"}
+                      variant="secondary"
+                      className={`text-[12px] bg-${tag.colour ?? "indigo"}-100 text-${tag.colour ?? "indigo"}-700 h-auto py-1 rounded-full whitespace-nowrap w-auto cursor-pointer`}
+                    >
+                      {tag.name}
+                    </Badge>
+                    <div className="flex items-center gap-2">
+                      <EditTagsDialog tag={tag} key={tag.id + "edit"} />
+                      <DeleteTag id={tag.id} key={tag.id + "delete"} />
+                    </div>
+                  </div>
+                ))}
+            </>
+          )}
         </ScrollArea>
       </DialogContent>
     </Dialog>

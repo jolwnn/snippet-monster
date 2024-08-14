@@ -4,7 +4,7 @@ import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { createNewSnippet } from "@/lib/actions";
 
 export default function Starter() {
-  const { setEditForm, stepper, setStepper } = useGlobalContext();
+  const { editForm, setEditForm, stepper, setStepper } = useGlobalContext();
   function handleCreateSnippet() {
     createNewSnippet().then((res) => {
       if (res.data) {
@@ -17,7 +17,7 @@ export default function Starter() {
   }
   return (
     <div
-      className="flex flex-1 items-center justify-center rounded-lg border shadow-sm mx-2 py-28"
+      className={`flex flex-1 items-center justify-center rounded-lg border shadow-sm mx-2 py-28 ${editForm.formState === "Closed" ? "" : "hidden"}`}
       x-chunk="dashboard-02-chunk-1"
     >
       <div className="flex flex-col items-center gap-2 text-center">

@@ -51,14 +51,18 @@ export function TagsDialog() {
   const [open, setOpen] = React.useState(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      name: "",
+      colour: "",
+    },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     createTag(data).then((res) => {
-      if (res.data) {
-        setTagStepper(tagStepper + 1); // To trigger re-render of tags components
-      } else {
+      if (res.error) {
         console.error(res.error);
+      } else {
+        setTagStepper(tagStepper + 1); // To trigger re-render of tags components
       }
       setOpen(false);
     });
@@ -67,7 +71,7 @@ export function TagsDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="rounded-full py-1 px-3.5 h-auto text-sm">
+        <Button className="rounded-full px-2 py-1 md:px-3.5 h-auto text-sm md:mr-0">
           +{"  "}Add Tag
         </Button>
       </DialogTrigger>
