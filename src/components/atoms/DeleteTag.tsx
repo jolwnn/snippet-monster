@@ -28,7 +28,7 @@ export function DeleteTag({ id }: { id: string }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" className="hover:bg-pink-100/80">
           <Trash className="font-semibold text-pink-500/50 size-4 hover:text-pink-600/80 cursor-pointer" />
           <span className="sr-only">Delete tag</span>
         </Button>

@@ -17,7 +17,7 @@ export default function Starter() {
   }
   return (
     <div
-      className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
+      className="flex flex-1 items-center justify-center rounded-lg border shadow-sm mx-2 py-28"
       x-chunk="dashboard-02-chunk-1"
     >
       <div className="flex flex-col items-center gap-2 text-center">

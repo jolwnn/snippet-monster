@@ -34,7 +34,7 @@ export function SnippetCard({ snippet }: { snippet: SnippetType }) {
   };
 
   const cardStyles =
-    "flex flex-col p-4 gap-4 w-full h-[380px] transition-transform transform hover:scale-105";
+    "flex flex-col p-4 gap-4 w-full h-[380px] transition-transform transform hover:scale-105 hover:border-indigo-600";
   const cardHeaderStyles =
     "flex flex-col gap-0 w-full items-start justify-start p-1";
   const cardTitleStyles = `text-lg font-semibold text-left ${(!snippet.title || snippet?.title === "") && "text-muted-foreground/50"}`;

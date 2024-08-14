@@ -28,6 +28,8 @@ export interface GlobalContextType {
   setTab: React.Dispatch<React.SetStateAction<"all" | "favourites">>;
   selectedTag: string | null;
   setSelectedTag: React.Dispatch<React.SetStateAction<string | null>>;
+  searchQuery: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const GlobalContext = React.createContext<GlobalContextType>({
@@ -61,6 +63,8 @@ export const GlobalContext = React.createContext<GlobalContextType>({
   setTab: () => {},
   selectedTag: null,
   setSelectedTag: () => {},
+  searchQuery: "",
+  setSearchQuery: () => {},
 });
 
 export function GlobalProvider({ children }: React.PropsWithChildren) {
@@ -87,6 +91,7 @@ export function GlobalProvider({ children }: React.PropsWithChildren) {
   const [tagStepper, setTagStepper] = React.useState(0);
   const [tab, setTab] = React.useState<"all" | "favourites">("all");
   const [selectedTag, setSelectedTag] = React.useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   const [snippets, setSnippets] = React.useState<SnippetType[] | null>(null);
   const [otherSnippets, setOtherSnippets] = React.useState<
@@ -120,34 +125,21 @@ export function GlobalProvider({ children }: React.PropsWithChildren) {
   }, [editForm.formState, editForm.snippet.id, snippets]);
 
   React.useEffect(() => {
-    if (tab === "favourites") {
-      const favouriteSnippets =
-        otherSnippets?.filter((snippet) => snippet.favourite) ?? [];
-      if (selectedTag) {
-        setSnippetsToShow(
-          favouriteSnippets.filter((snippet) =>
-            snippet.tags?.includes(selectedTag)
-          ) ?? []
-        );
-      } else {
-        setSnippetsToShow(favouriteSnippets);
-      }
-      setSnippetsToShow(
-        otherSnippets?.filter((snippet) => snippet.favourite) ?? []
-      );
-    } else {
-      // tab === "all"
-      if (selectedTag) {
-        setSnippetsToShow(
-          otherSnippets?.filter((snippet) =>
-            snippet.tags?.includes(selectedTag)
-          ) ?? []
-        );
-      } else {
-        setSnippetsToShow(otherSnippets);
-      }
-    }
-  }, [otherSnippets, selectedTag, tab]);
+    const filterByTab =
+      tab === "favourites"
+        ? (otherSnippets?.filter((snippet) => snippet.favourite) ?? [])
+        : (otherSnippets ?? []);
+    const filterByTag = selectedTag
+      ? filterByTab.filter((snippet) => snippet.tags?.includes(selectedTag))
+      : filterByTab;
+    const filterBySearchQuery =
+      searchQuery === ""
+        ? filterByTag
+        : filterByTag.filter((snippet) =>
+            snippet.title.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+    setSnippetsToShow(filterBySearchQuery);
+  }, [otherSnippets, searchQuery, selectedTag, tab]);
 
   const [tags, setTags] = React.useState<TagType[] | null>(null);
 
@@ -187,6 +179,8 @@ export function GlobalProvider({ children }: React.PropsWithChildren) {
         setTab,
         selectedTag,
         setSelectedTag,
+        searchQuery,
+        setSearchQuery,
       }}
     >
       {children}

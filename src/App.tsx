@@ -1,17 +1,17 @@
-import "./App.css";
+import "@/App.css";
 
-import { Menu, Search } from "lucide-react";
+import { Menu } from "lucide-react";
 
+import SearchBar from "@/components/atoms/SearchBar";
+import Dashboard from "@/components/organisms/Dashboard";
+import NavBar from "@/components/organisms/NavBar";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Sheet,
   SheetContent,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import Dashboard from "./components/organisms/Dashboard";
-import NavBar from "./components/organisms/NavBar";
 
 function App() {
   return (
@@ -59,16 +59,7 @@ function App() {
             </SheetContent>
           </Sheet>
           <div className="w-full flex-1">
-            <form>
-              <div className="relative flex items-center justify-center">
-                <Search className="absolute left-2.5 size-4 text-indigo-500/80" />
-                <Input
-                  type="search"
-                  placeholder="Search snippets..."
-                  className="w-full appearance-none bg-background pl-8 shadow-none rounded-full focus-visible:ring-1 focus-visible:ring-indigo-500"
-                />
-              </div>
-            </form>
+            <SearchBar />
           </div>
         </header>
         <Dashboard />

@@ -34,8 +34,8 @@ export default function TagManager() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <div className="flex items-center justify-between">
-            <DialogTitle className="font-bold text-xl mt-2 flex items-center gap-2">
+          <div className="flex items-center justify-between mt-2">
+            <DialogTitle className="font-bold text-xl flex items-center gap-2">
               <Tags className="size-4" /> Tags
             </DialogTitle>
             <span className="px-6">
@@ -46,9 +46,9 @@ export default function TagManager() {
             Edit or delete tags used across your snippets.
           </DialogDescription>
         </DialogHeader>
-        <ScrollArea className="grid gap-2 md:max-h-[55vh] mx-2 pb-2">
+        <ScrollArea className="grid gap-2 md:max-h-[55vh] pb-2 rounded-md px-4 py-6 bg-muted">
           {tags?.map((tag) => (
-            <div className="grid grid-cols-[1fr_auto] items-center gap-4 px-4 py-2 rounded-md border border-slate-300 hover:bg-muted mr-4 mb-2">
+            <div className="grid grid-cols-[1fr_auto] items-center gap-4 px-4 py-2 rounded-md border border-slate-200 hover:scale-95 hover:border-indigo-600 mb-2 bg-white">
               <Badge
                 key={tag.id}
                 variant="secondary"

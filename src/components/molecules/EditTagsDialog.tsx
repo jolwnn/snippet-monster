@@ -13,7 +13,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -78,7 +77,7 @@ export function EditTagsDialog({ tag }: { tag: TagType }) {
           <span className="sr-only">Edit tag</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] p-4">
+      <DialogContent className="sm:max-w-[425px] flex flex-col gap-6 p-6">
         <DialogHeader>
           <DialogTitle className="font-bold mt-2 flex items-center gap-2">
             <Tag className="size-4" /> Add New Tag
@@ -86,20 +85,18 @@ export function EditTagsDialog({ tag }: { tag: TagType }) {
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="grid gap-2 pb-4">
+            <div className="grid grid-cols-5 gap-2 mb-6 px-1">
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
-                  <FormItem className="grid grid-cols-4 items-center pr-4">
-                    <FormLabel className="text-muted-foreground font-normal text-center">
-                      Name
-                    </FormLabel>
-                    <FormControl className="col-span-3 ml-1">
+                  <FormItem className="flex flex-col gap-1 col-span-3">
+                    <FormControl>
                       <Input
                         id="name"
+                        placeholder="Label"
                         {...field}
-                        className="col-span-3 focus-visible:border-indigo-500 focus-visible:ring-transparent rounded-sm"
+                        className="focus-visible:border-indigo-500 focus-visible:ring-transparent rounded-sm"
                       />
                     </FormControl>
                     <FormMessage />
@@ -111,42 +108,41 @@ export function EditTagsDialog({ tag }: { tag: TagType }) {
                 control={form.control}
                 name="colour"
                 render={({ field }) => (
-                  <FormItem className="grid grid-cols-4 items-center">
-                    <FormLabel className="text-muted-foreground font-normal text-center">
-                      Colour
-                    </FormLabel>
+                  <FormItem className="col-span-2">
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
-                      <FormControl className="col-span-2">
-                        <SelectTrigger className="focus:ring-1 focus:ring-indigo-500 rounded-sm">
-                          <SelectValue placeholder="Select a colour" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent
-                        side="right"
-                        className="col-span-2 flex flex-col gap-0 items-start h-[200px]"
-                      >
-                        <SelectGroup>
-                          <SelectLabel>Colours</SelectLabel>
+                      <span className="flex flex-col gap-1 w-full">
+                        <FormControl>
+                          <SelectTrigger className="focus:ring-1 focus:ring-indigo-500 rounded-sm">
+                            <SelectValue placeholder="Select a colour" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent
+                          side="right"
+                          className="col-span-2 flex flex-col gap-0 items-start h-[200px]"
+                        >
+                          <SelectGroup>
+                            <SelectLabel>Colours</SelectLabel>
 
-                          {DEFAULT_COLOURS.map((colour) => (
-                            <SelectItem value={colour} key={colour}>
-                              <Badge
-                                key={colour}
-                                variant="secondary"
-                                className={`text-[12px] bg-${colour}-100 px-3 py-0 text-${colour}-700 rounded-full`}
-                              >
-                                {colour}
-                              </Badge>
-                            </SelectItem>
-                          ))}
-                          <Separator />
-                        </SelectGroup>
-                      </SelectContent>
+                            {DEFAULT_COLOURS.map((colour) => (
+                              <SelectItem value={colour} key={colour}>
+                                <Badge
+                                  key={colour}
+                                  variant="secondary"
+                                  className={`text-[12px] bg-${colour}-100 px-3 py-0 text-${colour}-700 rounded-full`}
+                                >
+                                  {colour}
+                                </Badge>
+                              </SelectItem>
+                            ))}
+                            <Separator />
+                          </SelectGroup>
+                        </SelectContent>
+                        <FormMessage />
+                      </span>
                     </Select>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
