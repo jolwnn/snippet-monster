@@ -260,6 +260,7 @@ export function SnippetForm() {
                   onFocus={() => setIsFocused(true)}
                   onBlur={() => setIsFocused(false)}
                   value={editForm.snippet.code ?? ""}
+                  setOptions={{ useWorker: false }}
                   onChange={(newValue) => {
                     setEditForm({
                       ...editForm,
