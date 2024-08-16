@@ -1,23 +1,41 @@
-import { Database } from "@/database.types.ts";
-import { SnippetType, TagType } from "@/types/dbtypes";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "@/config/db";
+import { SnippetType } from "@/types/dbtypes";
 
-const supabase = createClient<Database>(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
-);
+async function getCurrentUserId() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  return user?.id;
+}
 
 export async function readSnippets() {
-  const data = await supabase.from("snippets").select("*");
-  return data;
+  const userId = await getCurrentUserId();
+  if (!userId) return { error: "User not authenticated", data: null };
+
+  const { data, error } = await supabase
+    .from("snippets")
+    .select("*")
+    .eq("user_id", userId);
+
+  return { data, error: error ? error.message : null };
 }
 
 export async function readTags() {
-  const data = await supabase.from("tags").select("*");
-  return data;
+  const userId = await getCurrentUserId();
+  if (!userId) return { error: "User not authenticated", data: null };
+
+  const { data, error } = await supabase
+    .from("tags")
+    .select("*")
+    .eq("user_id", userId);
+
+  return { data, error: error ? error.message : null };
 }
 
 export async function createNewSnippet() {
+  const userId = await getCurrentUserId();
+  if (!userId) return { error: "User not authenticated", data: null };
+
   const { data, error } = await supabase
     .from("snippets")
     .insert({
@@ -27,67 +45,54 @@ export async function createNewSnippet() {
       tags: [],
       language: "javascript",
       favourite: false,
+      user_id: userId,
     })
     .select();
 
   if (error) {
-    return {
-      error: error.message,
-      data: null,
-    };
+    return { error: error.message, data: null };
   } else {
-    return {
-      error: null,
-      data: data[0] as SnippetType,
-    };
+    return { error: null, data: data[0] as SnippetType };
   }
 }
 
 export async function updateSnippet(snippet: SnippetType) {
+  const userId = await getCurrentUserId();
+  if (!userId) return { error: "User not authenticated" };
+
   const { error } = await supabase
     .from("snippets")
     .update({ ...snippet, updated_at: new Date().toISOString() })
-    .eq("id", snippet.id);
+    .eq("id", snippet.id)
+    .eq("user_id", userId);
 
-  if (error) {
-    return {
-      error: error.message,
-    };
-  } else {
-    return {
-      error: null,
-    };
-  }
+  return { error: error ? error.message : null };
 }
 
 export async function updateSnippetLiked(id: string, favourite: boolean) {
+  const userId = await getCurrentUserId();
+  if (!userId) return { error: "User not authenticated" };
+
   const { error } = await supabase
     .from("snippets")
     .update({ favourite })
-    .eq("id", id);
-  if (error) {
-    return {
-      error: error.message,
-    };
-  } else {
-    return {
-      error: null,
-    };
-  }
+    .eq("id", id)
+    .eq("user_id", userId);
+
+  return { error: error ? error.message : null };
 }
 
 export async function deleteSnippet(id: string) {
-  const { error } = await supabase.from("snippets").delete().eq("id", id);
+  const userId = await getCurrentUserId();
+  if (!userId) return { error: "User not authenticated" };
 
-  if (error) {
-    return {
-      error: error.message,
-    };
-  } else {
-    return {
-      error: null,
-    };
-  }
+  const { error } = await supabase
+    .from("snippets")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", userId);
+
+  return { error: error ? error.message : null };
 }
 
 export async function createTag({
@@ -97,46 +102,45 @@ export async function createTag({
   name: string;
   colour: string;
 }) {
+  const userId = await getCurrentUserId();
+  if (!userId) return { error: "User not authenticated" };
+
   const { error } = await supabase.from("tags").insert({
     name,
     colour,
+    user_id: userId,
   });
 
-  if (error) {
-    return {
-      error: error.message,
-    };
-  } else {
-    return {
-      error: null,
-    };
-  }
+  return { error: error ? error.message : null };
 }
 
 export async function deleteTag(id: string) {
-  const { error } = await supabase.from("tags").delete().eq("id", id);
+  const userId = await getCurrentUserId();
+  if (!userId) return { error: "User not authenticated" };
 
-  if (error) {
-    return {
-      error: error.message,
-    };
-  } else {
-    return {
-      error: null,
-    };
-  }
+  const { error } = await supabase
+    .from("tags")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", userId);
+
+  return { error: error ? error.message : null };
 }
 
-export async function updateTag(tag: TagType) {
-  const { error } = await supabase.from("tags").update(tag).eq("id", tag.id);
-
-  if (error) {
-    return {
-      error: error.message,
-    };
-  } else {
-    return {
-      error: null,
-    };
+export async function updateTag(tag: {
+  id: string;
+  name: string;
+  colour: string;
+}) {
+  const userId = await getCurrentUserId();
+  if (!userId) {
+    return { error: "User not authenticated" };
   }
+  const { error } = await supabase
+    .from("tags")
+    .update(tag)
+    .eq("id", tag.id)
+    .eq("user_id", userId);
+
+  return { error: error ? error.message : null };
 }

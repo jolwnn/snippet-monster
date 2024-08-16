@@ -1,11 +1,15 @@
+import TagManager from "@/components/molecules/TagManager";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/config/db";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { createNewSnippet } from "@/lib/actions";
-import { Heart, LayoutGrid, Plus } from "lucide-react";
-import TagManager from "@/components/molecules/TagManager";
+import { Heart, LayoutGrid, LogOut, Plus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
+  const navigate = useNavigate();
+
   const { snippets, editForm, setEditForm, tab, setTab, stepper, setStepper } =
     useGlobalContext();
 
@@ -19,6 +23,16 @@ export default function NavBar() {
       }
     });
   }
+
+  async function signOutUser() {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error(error);
+      return;
+    }
+    navigate("/");
+  }
+
   return (
     <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
       <Button
@@ -58,6 +72,14 @@ export default function NavBar() {
       </Button>
       <span className="text-indigo-950/90 text-left px-3 mt-6">More</span>
       <TagManager />
+      <Button
+        variant="ghost"
+        className={`flex items-center justify-start gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary`}
+        onClick={() => signOutUser()}
+      >
+        <LogOut className="size-4" />
+        Log Out
+      </Button>
     </nav>
   );
 }

@@ -45,6 +45,7 @@ export const GlobalContext = React.createContext<GlobalContextType>({
       tags: [],
       language: null,
       favourite: false,
+      user_id: null,
     },
   },
   setEditForm: () => {},
@@ -83,6 +84,7 @@ export function GlobalProvider({ children }: React.PropsWithChildren) {
       tags: [],
       language: null,
       favourite: false,
+      user_id: null,
     },
   });
 
@@ -104,7 +106,7 @@ export function GlobalProvider({ children }: React.PropsWithChildren) {
   React.useEffect(() => {
     startTransition(() => {
       readSnippets().then((snippets) => {
-        const sortedSnippets = snippets.data?.sort((a, b) => {
+        const sortedSnippets = (snippets.data ?? []).sort((a, b) => {
           return (
             new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
           );
@@ -146,7 +148,7 @@ export function GlobalProvider({ children }: React.PropsWithChildren) {
   React.useEffect(() => {
     startTransition(() => {
       readTags().then((tags) => {
-        setTags(tags.data as TagType[]);
+        setTags((tags.data ?? []) as TagType[]);
       });
     });
   }, [tagStepper]); // Fetch Tags

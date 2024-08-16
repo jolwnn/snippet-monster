@@ -4,82 +4,104 @@ export type Json =
   | boolean
   | null
   | { [key: string]: Json | undefined }
-  | Json[]
+  | Json[];
 
 export type Database = {
   public: {
     Tables: {
       snippets: {
         Row: {
-          code: string | null
-          created_at: string
-          description: string | null
-          favourite: boolean
-          id: string
-          language: string | null
-          tags: string[] | null
-          title: string
-          updated_at: string
-        }
+          code: string | null;
+          created_at: string;
+          description: string | null;
+          favourite: boolean;
+          id: string;
+          language: string | null;
+          tags: string[] | null;
+          title: string;
+          updated_at: string;
+          user_id: string | null;
+        };
         Insert: {
-          code?: string | null
-          created_at?: string
-          description?: string | null
-          favourite?: boolean
-          id?: string
-          language?: string | null
-          tags?: string[] | null
-          title?: string
-          updated_at?: string
-        }
+          code?: string | null;
+          created_at?: string;
+          description?: string | null;
+          favourite?: boolean;
+          id?: string;
+          language?: string | null;
+          tags?: string[] | null;
+          title?: string;
+          updated_at?: string;
+          user_id?: string | null;
+        };
         Update: {
-          code?: string | null
-          created_at?: string
-          description?: string | null
-          favourite?: boolean
-          id?: string
-          language?: string | null
-          tags?: string[] | null
-          title?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
+          code?: string | null;
+          created_at?: string;
+          description?: string | null;
+          favourite?: boolean;
+          id?: string;
+          language?: string | null;
+          tags?: string[] | null;
+          title?: string;
+          updated_at?: string;
+          user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "snippets_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       tags: {
         Row: {
-          colour: string | null
-          id: string
-          name: string | null
-        }
+          colour: string | null;
+          id: string;
+          name: string | null;
+          user_id: string | null;
+        };
         Insert: {
-          colour?: string | null
-          id?: string
-          name?: string | null
-        }
+          colour?: string | null;
+          id?: string;
+          name?: string | null;
+          user_id?: string | null;
+        };
         Update: {
-          colour?: string | null
-          id?: string
-          name?: string | null
-        }
-        Relationships: []
-      }
-    }
+          colour?: string | null;
+          id?: string;
+          name?: string | null;
+          user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "tags_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+    };
     Views: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Functions: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Enums: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     CompositeTypes: {
-      [_ in never]: never
-    }
-  }
-}
+      [_ in never]: never;
+    };
+  };
+};
 
-type PublicSchema = Database[Extract<keyof Database, "public">]
+type PublicSchema = Database[Extract<keyof Database, "public">];
 
 export type Tables<
   PublicTableNameOrOptions extends
@@ -92,7 +114,7 @@ export type Tables<
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
       Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-      Row: infer R
+      Row: infer R;
     }
     ? R
     : never
@@ -100,11 +122,11 @@ export type Tables<
         PublicSchema["Views"])
     ? (PublicSchema["Tables"] &
         PublicSchema["Views"])[PublicTableNameOrOptions] extends {
-        Row: infer R
+        Row: infer R;
       }
       ? R
       : never
-    : never
+    : never;
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
@@ -115,17 +137,17 @@ export type TablesInsert<
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I
+      Insert: infer I;
     }
     ? I
     : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
     ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Insert: infer I
+        Insert: infer I;
       }
       ? I
       : never
-    : never
+    : never;
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
@@ -136,17 +158,17 @@ export type TablesUpdate<
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U
+      Update: infer U;
     }
     ? U
     : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
     ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Update: infer U
+        Update: infer U;
       }
       ? U
       : never
-    : never
+    : never;
 
 export type Enums<
   PublicEnumNameOrOptions extends
@@ -159,4 +181,4 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
-    : never
+    : never;
