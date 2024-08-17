@@ -12,10 +12,10 @@ export default function CodeBlock({ code, language }: Props) {
       language={language}
       style={atelierCaveLight}
       wrapLines={true}
-      wrapLongLines={true}
       showLineNumbers={true}
       showInlineLineNumbers={false}
-      className="rounded-sm p-4 max-h-full w-full overflow-y-auto text-sm"
+      lineProps={{ style: { wordBreak: "break-all", whiteSpace: "pre-wrap" } }}
+      className="rounded-sm p-4 max-h-full w-full overflow-y-auto text-sm text-left"
     >
       {code}
     </SyntaxHighlighter>

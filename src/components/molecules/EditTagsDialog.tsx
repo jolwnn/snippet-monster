@@ -80,7 +80,7 @@ export function EditTagsDialog({ tag }: { tag: TagType }) {
       <DialogContent className="sm:max-w-[425px] flex flex-col gap-6 p-6">
         <DialogHeader>
           <DialogTitle className="font-bold mt-2 flex items-center gap-2">
-            <Tag className="size-4" /> Add New Tag
+            <Tag className="size-4" /> Edit Tag
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>

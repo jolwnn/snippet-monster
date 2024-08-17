@@ -25,7 +25,7 @@ export default function Landing() {
         </Button>
       </header>
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24">
+        <section className="w-full py-16 md:py-24">
           <div className="container px-4 md:px-6 lg:px-20">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4 items-center">
@@ -50,9 +50,7 @@ export default function Landing() {
                 </Button>
               </div>
               <img
-                src="/test.png"
-                width="550"
-                height="350"
+                src="/preview.png"
                 alt="Hero"
                 className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last shadow-lg"
               />

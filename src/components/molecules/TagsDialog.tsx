@@ -41,9 +41,11 @@ const FormSchema = z.object({
       required_error: "Please enter a name.",
     })
     .min(1, "Please enter a name."),
-  colour: z.string({
-    required_error: "Please select a colour.",
-  }),
+  colour: z
+    .string({
+      required_error: "Please select a colour.",
+    })
+    .min(1, "Please select a colour."),
 });
 
 export function TagsDialog() {
