@@ -47,7 +47,7 @@ export default function Login() {
               },
             }}
             theme="light"
-            providers={["github"]}
+            providers={[]}
           />
         </span>
       </div>
