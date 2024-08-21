@@ -15,10 +15,18 @@ Try it out here! [](https://snippet-monster.vercel.app/)
 - **Snippet Sharing**: (Coming Soon) Share your snippets with others easily.
 - **Folder Hierarchies**: (Coming Soon) Organize your snippets into folders.
 
-![landing-preview](https://github.com/user-attachments/assets/3d964ee6-9f83-4525-b1e3-941432150fb0)
-![login-preview](https://github.com/user-attachments/assets/ed8fd7c8-ef20-4891-8cd1-3dae0112c2c8)
-![dashboard-preview](https://github.com/user-attachments/assets/ceaef7b4-1514-4ede-ab9e-d2ab9b71b193)
-![editor-preview](https://github.com/user-attachments/assets/2f7e2637-4d97-427d-966d-db91ca7909c3)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3d964ee6-9f83-4525-b1e3-941432150fb0" alt="landing-preview" width="50%">
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ed8fd7c8-ef20-4891-8cd1-3dae0112c2c8" alt="login-preview" width="50%">
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ceaef7b4-1514-4ede-ab9e-d2ab9b71b193" alt="dashboard-preview" width="50%">
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/2f7e2637-4d97-427d-966d-db91ca7909c3" alt="editor-preview" width="50%">
+</p>
 
 ## Tech Stack
 
