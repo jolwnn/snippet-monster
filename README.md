@@ -1,50 +1,63 @@
-# React + TypeScript + Vite
+# Snippet Monster
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Your Code, Perfectly Curated
+Snippet Monster is a web application designed to help developers organise and manage their commonly used code snippets efficiently. This small passion project was built at the end of my internship at Vucar, serving as a culmination of the skills I learned and applied during my time there. As someone who often copies and pastes commonly used pieces of code—such as terminal commands and self-designed React components—into notes apps, I created Snippet Monster to streamline the process of storing and retrieving code snippets. I was also curious about how my favourite notes apps, such as Notion, work, and hence I built Snippet Monster as a simplified editor and storage system with basic features, to gain a deeper understanding of the underlying mechanisms that power such applications.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Organized Snippet Management**: Store code snippets with titles, descriptions, tags, and code previews.
+- **Efficient Search**: Quickly find snippets using keywords or tags.
+- **User Authentication**: Securely log in and manage your own snippets.
+- **Autosave**: Real-time saving of your snippets as you type.
+- **Responsive Design**: A user-friendly interface that adapts to all devices.
+- **Snippet Sharing**: (Coming Soon) Share your snippets with others easily.
+- **Folder Hierarchies**: (Coming Soon) Organize your snippets into folders.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Frontend**: React, TypeScript, Tailwind CSS, Shadcn UI
+- **Backend and Auth**: Supabase (PostgreSQL), Drizzle ORM, Node.js
+- **Deployment**: Vercel, but was also successfully attempted with Nginx and AWS EC2
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+To run Snippet Monster locally, follow these steps:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+1. **Clone the repository:**
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+   ```bash
+   git clone https://github.com/yourusername/snippet-monster.git
+   cd snippet-monster
+   ```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables:**
+
+   Create a `.env` file in the root directory with the following:
+
+   ```bash
+   VITE_SUPABASE_URL=your-supabase-url
+   VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+   ```
+
+4. **Run the development server:**
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Open your browser:**
+
+   Visit `http://localhost:8083` to see Snippet Monster in action.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Forking or Cloning
+If you choose to fork or clone this repository, please give me proper credit by linking back to my github here: [jolwnn](https://github.com/jolwnn). I put significant time and effort in designing and building the application, and your acknowledgment is greatly appreciated. Thanks!
