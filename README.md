@@ -3,6 +3,8 @@
 ## Your Code, Perfectly Curated
 Snippet Monster is a web application designed to help developers organise and manage their commonly used code snippets efficiently. This small passion project was built at the end of my internship at Vucar, serving as a culmination of the skills I learned and applied during my time there. As someone who often copies and pastes commonly used pieces of code—such as terminal commands and self-designed React components—into notes apps, I created Snippet Monster to streamline the process of storing and retrieving code snippets. I was also curious about how my favourite notes apps, such as Notion, work, and hence I built Snippet Monster as a simplified editor and storage system with basic features, to gain a deeper understanding of the underlying mechanisms that power such applications.
 
+Try it out here! [](https://snippet-monster.vercel.app/)
+
 ## Features
 
 - **Organized Snippet Management**: Store code snippets with titles, descriptions, tags, and code previews.
@@ -12,6 +14,11 @@ Snippet Monster is a web application designed to help developers organise and ma
 - **Responsive Design**: A user-friendly interface that adapts to all devices.
 - **Snippet Sharing**: (Coming Soon) Share your snippets with others easily.
 - **Folder Hierarchies**: (Coming Soon) Organize your snippets into folders.
+
+![landing-preview](https://github.com/user-attachments/assets/3d964ee6-9f83-4525-b1e3-941432150fb0)
+![login-preview](https://github.com/user-attachments/assets/ed8fd7c8-ef20-4891-8cd1-3dae0112c2c8)
+![dashboard-preview](https://github.com/user-attachments/assets/ceaef7b4-1514-4ede-ab9e-d2ab9b71b193)
+![editor-preview](https://github.com/user-attachments/assets/2f7e2637-4d97-427d-966d-db91ca7909c3)
 
 ## Tech Stack
 
