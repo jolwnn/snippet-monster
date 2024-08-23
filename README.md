@@ -27,6 +27,9 @@ Try it out here! [https://snippet-monster.vercel.app/](https://snippet-monster.v
 <p align="center">
   <img src="https://github.com/user-attachments/assets/2f7e2637-4d97-427d-966d-db91ca7909c3" alt="editor-preview" width="75%">
 </p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b070fb96-4158-4539-bbbb-c57070e3f0bf" alt="tags-editor-preview" width="75%">
+</p>
 
 ## Tech Stack
 
