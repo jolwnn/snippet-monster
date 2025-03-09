@@ -18,7 +18,7 @@ import { DEFAULT_LANGUAGES, DEFAULT_LANGUAGES_NAMES } from "@/config/constants";
 import { cn } from "@/lib/utils";
 import { LanguageType } from "@/types/constants";
 import { CheckIcon, ChevronsUpDown } from "lucide-react";
-import LanguageIcon from "./LanguageIcon";
+import LanguageIcon from "@/components/atoms/LanguageIcon";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 export function LanguageSelector() {
